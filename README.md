@@ -9,7 +9,7 @@
 1. **Установите Python 3.11.9**
 2. **Создайте виртуальное окружение:**
    ```
-   python -m venv venv
+   py -m venv venv
    venv\Scripts\activate
    ```
 4. **Установите зависимости:**
@@ -19,11 +19,11 @@
 6. **Перейдите в папку backend и запустите миграции:**
    ```
    cd backend
-   python manage.py migrate
+   py manage.py migrate
    ```
 8. **Запустите сервер:**
    ```
-   python manage.py runserver
+   py manage.py runserver
    ```
 
 Приложение доступно по адресу: http://127.0.0.1:8000
@@ -36,12 +36,12 @@
     
 1. **Создание суперпользователя:**
     ```
-    python create_admin.py
+    py create_admin.py
     ```
 
 3. **Создание валют:**
     ```
-    python create_exchange_rates.py
+    py create_exchange_rates.py
     ```
 
 4. **Создание тестовых пользователей:**
