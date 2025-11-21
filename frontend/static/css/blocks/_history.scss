@@ -1,0 +1,20 @@
+@use '../helpers' as *;
+
+.history {
+   &__header {
+      display: inline-flex;
+      gap: 10px;
+      margin-bottom: 10px;
+
+      @include mobile {
+         flex-direction: column;
+         width: 100%;
+      }
+   }
+
+   &__body {
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+   }
+}

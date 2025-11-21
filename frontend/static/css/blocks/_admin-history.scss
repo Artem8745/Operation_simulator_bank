@@ -1,0 +1,15 @@
+@use '../helpers' as *;
+
+.admin-history {
+   &__info {
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: var(--color-dark-alt);
+      border-radius: var(--border-radius);
+   }
+
+   &-load-more {
+      padding-top: 10px;
+      padding-bottom: 40px;
+   }
+}

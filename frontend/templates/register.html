@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   {% load static %}
+   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+   <title>Регистрация - Онлайн касса</title>
+</head>
+<body>
+   <main class="main">
+      <div class="auth-container container">
+         <div class="auth">
+            <div class="auth__header">
+               <h1 class="auth__title h2">Онлайн касса</h1>
+               <p>Создайте новый аккаунт</p>
+            </div>
+
+            {% if form.errors %}
+            <div class="error-message">
+                Пожалуйста, исправьте ошибки в форме.
+            </div>
+            {% endif %}
+
+            <form class="auth__form" method="post">
+               {% csrf_token %}
+
+               <div class="auth__field field">
+                  <label for="id_username" class="field__label">Имя пользователя*</label>
+                  {{ form.username }}
+                  {% if form.username.errors %}
+                  <div class="error-list">
+                     {{ form.username.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="help-text">Обязательное поле. Только буквы, цифры и @/./+/-/_.</div>
+               </div>
+               <div class="auth__field field">
+                  <label for="id_full_name" class="field__label">Полное имя*</label>
+                     {{ form.full_name }}
+                     {% if form.full_name.errors %}
+                     <div class="error-list">
+                           {{ form.full_name.errors }}
+                     </div>
+                     {% endif %}
+               </div>
+               <div class="auth__field field">
+                  <label for="id_email" class="field__label">Email*</label>
+                  {{ form.email }}
+                  {% if form.email.errors %}
+                  <div class="error-list">
+                     {{ form.email.errors }}
+                  </div>
+                  {% endif %}
+               </div>
+               <div class="auth__field field">
+                  <label for="id_phone" class="field__label">Телефон</label>
+                  {{ form.phone }}
+                  {% if form.phone.errors %}
+                  <div class="error-list">
+                     {{ form.phone.errors }}
+                  </div>
+                  {% endif %}
+               </div>
+               <div class="auth__field field">
+                  <label for="id_currency" class="field__label">Валюта основного счета*</label>
+                  {{ form.currency }}
+                  {% if form.currency.errors %}
+                  <div class="error-list">
+                     {{ form.currency.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="help-text">Выберите валюту для вашего первого счета</div>
+               </div>
+               <div class="auth__field field">
+                  <label for="id_password1" class="field__label">Пароль*</label>
+                  {{ form.password1 }}
+                  {% if form.password1.errors %}
+                  <div class="error-list">
+                     {{ form.password1.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="help-text">
+                     Пароль должен содержать как минимум 8 символов, не быть слишком простым и не состоять только из цифр.
+                  </div>
+               </div>
+               <div class="auth__field field">
+                  <label for="id_password2" class="field__label">Подтверждение пароля*</label>
+                  {{ form.password2 }}
+                  {% if form.password2.errors %}
+                  <div class="error-list">
+                     {{ form.password2.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="help-text">Для подтверждения введите, пожалуйста, пароль ещё раз.</div>
+               </div>
+               <button class="auth__button button" type="submit">Зарегистрироваться</button>
+            </form>
+
+            <div class="register-link">
+               <p>Уже есть аккаунт? <a href="/api/auth/login/" class="register-link__link">Войти</a></p>
+            </div>
+         </div>
+      </div>
+   </main>
+</body>
+</html>

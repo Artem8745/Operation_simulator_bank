@@ -1,0 +1,11 @@
+@use '../helpers' as *;
+
+.admin-actions {
+   display: flex;
+   gap: 20px;
+   flex-wrap: wrap;
+
+   @include mobile-s {
+      flex-direction: column;
+   }
+}

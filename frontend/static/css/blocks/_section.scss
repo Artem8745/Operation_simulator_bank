@@ -1,0 +1,16 @@
+@use '../helpers' as *;
+
+.section {
+   margin-bottom: 40px;
+
+   &__header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      @include mobile-s {
+         flex-direction: column;
+         row-gap: 10px;
+      }
+   }
+}

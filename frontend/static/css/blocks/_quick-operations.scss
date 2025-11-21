@@ -1,0 +1,13 @@
+@use "../helpers" as *;
+
+.quick-operations {
+   display: flex;
+   flex-direction: column;
+   row-gap: 10px;
+   padding-bottom: 40px;
+
+   &__body {
+      display: flex;
+      column-gap: 20px;
+   }
+}

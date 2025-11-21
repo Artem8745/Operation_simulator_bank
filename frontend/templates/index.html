@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   {% load static %}
+   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+   <title>Онлайн касса</title>
+</head>
+<body>
+   <header class="header">
+      <div class="header__inner container">
+         <h1 class="header__title h3">Онлайн касса</h1>
+         <nav class="header-menu">
+            <ul class="header-menu-list">
+               <li class="header-menu-item">
+                  <button onclick="showSection('dashboard')" class="header-menu__button button button-across" type="button">Мои счета</button>
+               </li>
+               <li class="header-menu-item">
+                  <button onclick="showSection('operations')" class="header-menu__button button button-across" type="button">Операции</button>
+               </li>
+               <li class="header-menu-item">
+                  <button onclick="showSection('history')" class="header__button button button-across" type="button">История</button>
+               </li>
+               <li class="header-menu-item">
+                  <button oonclick="window.location.href='/admin-panel/'" class="header__button button button-across" type="button">Админ-панель</button>
+               </li>
+            </ul>
+         </nav>
+         <div class="header-profile">
+            <span class="header-profile__user-info">Артём</span>
+            <button class="header-profile__button button">Выход</button>
+         </div>
+      </div>
+   </header>
+
+   <!-- Создание нового счета -->
+   <section id="createAccountCard" class="section hidden-display-none">
+      <div class="section__header container">
+         <h2 class="section__title">Создать новый счет</h2>
+      </div>
+      <div class="card-new container">
+         <div class="card-new__field field"> 
+            <label class="card-new__label field__label">Валюта счета:</label>
+            <select id="newAccountCurrency" class="card-new__select field__select">
+               <option value="RUB">RUB - Российский рубль</option>
+               <option value="USD">USD - Доллар США</option>
+               <option value="EUR">EUR - Евро</option>
+            </select>
+         </div>
+         <div class="card-new__button-wrapper">
+            <button onclick="createNewAccount()" class="card-new__button button">Создать счет</button>
+            <button onclick="showSection('dashboard')" class="card-new__button button">Отмена</button>
+         </div>
+      </div>
+   </section>
+
+   <!-- Панель управления счетами -->
+   <section id="dashboard" class="section">
+      <div class="section__header container">
+         <h2 class="card__title">Мои счета</h2>
+         <button onclick="showSection('createAccountCard')" class="card__title button">Создать новый счет</button>
+      </div>
+      <div class="section__body container">
+         <div class="card__body">
+
+            <!-- Выбор счета -->
+            <div class="account-selector">
+               <select id="accountSelect" class="account-selector__select" onchange="loadAccountData()">
+                  <option value="" disabled>-- Выберите счет --</option>
+               </select>
+               <button onclick="loadAccounts()" class="account-selector__button button">Обновить</button>
+            </div>
+
+            <!-- Информация о аккаунте -->
+            <div class="account-info">
+               <h3 class="account-info__title">Информация о счете</h3>
+               <ul class="account-info-list">
+                  <li class="account-info-item">
+                     <label for="clientName">Владелец</label>
+                     <span id="clientName">-</span>
+                  </li>
+                  <li class="account-info-item">
+                     <label for="accountBalance">Баланс:</label>
+                     <span id="accountBalance" class="balance">0.00</span>
+                  </li>
+                  <li class="account-info-item">
+                     <label for="accountCurrency">Валюта:</label>
+                     <span id="accountCurrency">-</span>
+                  </li>
+                  <li class="account-info-item">
+                     <label for="accountNumber">Номер счета:</label>
+                     <span id="accountNumber">-</span>
+                  </li>
+                  <li class="account-info-item">
+                     <label for="accountCreated">Дата создания:</label>
+                     <span id="accountCreated">-</span>
+                  </li>
+               </ul>
+            </div>
+
+            <!-- Быстрые операции -->
+            <div class="quick-operations" id="quickOperations">
+               <h3 class="quick-operations__title">Быстрые операции</h3>
+               <div class="quick-operations__body">
+                  <button class="quick-operations__button button" type="button">Пополнить</button>
+                  <button class="quick-operations__button button" type="button">Снять</button>
+                  <button class="quick-operations__button button" type="button">Перевести</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <!-- Экран с выбором операций -->
+   <section id="operations" class="section hidden-display-none">
+      <div class="section__header container">
+         <h2 class="section__title">Операции со счетом</h2>
+      </div>
+      <div class="operations container">
+         <div class="operations__header">
+            <label for="operationAccountSelect" class="operations__header-title">Выберите счет для операции:</label>
+            <select id="operationAccountSelect" class="operations__select select">
+               <option value="" disabled>-- Выберите счет --</option>
+            </select>
+         </div>
+         <div class="operations__body">
+            <article class="operations-card">
+               <h3 class="operations-card__title">Пополнение</h3>
+               <div class="operations-card__body">
+                  <div class="operations-card__field field">
+                     <label for="depositAmount" class="field__label">Сумма:</label>
+                     <input id="depositAmount" class="field__input" type="number" min="0" step="0.01" placeholder="0.00">
+                  </div>
+                  <div class="operations-card__field field">
+                     <label for="depositDescription" class="field__label">Описание</label>
+                     <input id="depositDescription" class="field__input" type="text" placeholder="Пополнение счета">
+                  </div>
+               </div>
+               <div class="operations-card__footer">
+                  <button onclick="deposit()" class="operations-card__button button">Выполнить</button>
+               </div>
+            </article>
+            <article class="operations-card">
+               <h3 class="operations-card__title">Снятие</h3>
+               <div class="operations-card__body">
+                  <div class="operations-card__field field">
+                     <label for="depositAmount" class="field__label">Сумма:</label>
+                     <input id="depositAmount" class="field__input" type="number" min="0" step="0.01" placeholder="0.00">
+                  </div>
+                  <div class="operations-card__field field">
+                     <label for="withdrawDescription" class="field__label">Описание</label>
+                     <input id="withdrawDescription" class="field__input" type="text" placeholder="Снятие наличных">
+                  </div>
+               </div>
+               <div class="operations-card__footer">
+                  <button onclick="withdraw()" class="operations-card__button button">Выполнить</button>
+               </div>
+            </article>
+            <article class="operations-card">
+               <h3 class="operations-card__title">Перевод</h3>
+               <div class="operations-card__body">
+                  <div class="operations-card__field field">
+                     <label for="toAccountNumber" class="field__label">Номер счета получателя:</label>
+                     <input id="toAccountNumber" class="field__input" type="number" min="0" placeholder="Введите номер счета">
+                     <button onclick="searchAccounts()" class="field__button button">Найти</button>
+                     <div id="searchResults" class="operations-card__search-results">
+                        <!-- <strong>40817810000000001</strong>  - Иван Петров -->
+                     </div>
+                  </div>
+                  <div class="operations-card__field field">
+                     <label for="depositAmount" class="field__label">Сумма:</label>
+                     <input id="depositAmount" class="field__input" type="number" min="0" step="0.01" placeholder="0.00">
+                  </div>
+                  <div class="operations-card__field field">
+                     <label for="transferDescription" class="field__label">Описание</label>
+                     <input id="transferDescription" class="field__input" type="text" placeholder="Пополнение счета">
+                  </div>
+               </div>
+               <div class="operations-card__footer">
+                  <button onclick="transfer()" class="operations-card__button button">Выполнить</button>
+               </div>
+            </article>
+         </div>
+      </div>
+   </section>
+
+   <!-- История -->
+   <section id="history" class="section hidden-display-none">
+      <div class="section__header container">
+         <h2 class="section__title">История операций</h2>
+      </div>
+      <div class="history container">
+         <div class="history__header">
+            <select id="historyAccountSelect" class="operations__select select">
+               <option value="" selected>-- Все счета --</option>
+               <option value="5646346347">5646346347 - 0.00 RUB</option>
+            </select>
+            <button onclick="loadAccountHistory()" class="history__button button" type="button">Обновить историю</button>
+         </div>
+         <div id="transactionHistory" class="history__body">
+            <ul class="transaction-list">
+               <p>Выберите счет для просмотра истории операций</p>
+               <li class="transaction-item">
+                  <div class="transaction__header">
+                     <span class="transaction-type">Пополнение</span>
+                     <span class="transaction-amount negative">+100.00 RUB</span>
+                  </div>
+                  <div class="transaction-description">Пополнение счета</div>
+                  <div class="transaction-meta">
+                     <data value="2025-11-12T11:53:00" class="transaction-data">12.11.2025 11:53</data>
+                  </div>
+               </li>
+               <li class="transaction-item">
+                  <div class="transaction__header">
+                     <span class="transaction-type">Пополнение</span>
+                     <span class="transaction-amount positive">+100.00 RUB</span>
+                  </div>
+                  <div class="transaction-description">Пополнение счета</div>
+                  <div class="transaction-meta">
+                     <data value="2025-11-12T11:53:00" class="transaction-data">12.11.2025 11:53</data>
+                  </div>
+               </li>
+               <li class="transaction-item">
+                  <div class="transaction__header">
+                     <span class="transaction-type">Пополнение</span>
+                     <span class="transaction-amount positive">+100.00 RUB</span>
+                  </div>
+                  <div class="transaction-description">Пополнение счета</div>
+                  <div class="transaction-meta">
+                     <data value="2025-11-12T11:53:00" class="transaction-data">12.11.2025 11:53</data>
+                  </div>
+               </li>
+               <li class="transaction-item">
+                  <div class="transaction__header">
+                     <span class="transaction-type">Пополнение</span>
+                     <span class="transaction-amount positive">+100.00 RUB</span>
+                  </div>
+                  <div class="transaction-description">Пополнение счета</div>
+                  <div class="transaction-meta">
+                     <data value="2025-11-12T11:53:00" class="transaction-data">12.11.2025 11:53</data>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </div>
+
+    <!-- Уведомления -->
+    <div id="notification" class="notification hidden"></div>
+   </section>
+
+   <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

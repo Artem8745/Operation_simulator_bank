@@ -1,0 +1,11 @@
+@use '../helpers' as *;
+
+.account-selector {
+   display: flex;
+   column-gap: 20px;
+   margin-bottom: 20px;
+
+   &__select {
+      width: 100%;
+   }
+}

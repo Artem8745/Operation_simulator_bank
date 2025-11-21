@@ -1,0 +1,25 @@
+@use "fonts";
+@use "globals";
+@use "normalize";
+@use "utils";
+@use "varibles";
+
+@use "./blocks/button";
+@use "./blocks/modal";
+@use "./blocks/api";
+
+@use "./blocks/section";
+@use "./blocks/header";
+@use "./blocks/account-selector";
+@use "./blocks/account-info";
+@use "./blocks/card-new";
+@use "./blocks/quick-operations";
+@use "./blocks/operations";
+@use "./blocks/transaction";
+@use "./blocks/login-auth";
+@use "./blocks/history";
+@use "./blocks/filter";
+
+@use "./blocks/stats";
+@use "./blocks/admin-actions";
+@use "./blocks/admin-history";

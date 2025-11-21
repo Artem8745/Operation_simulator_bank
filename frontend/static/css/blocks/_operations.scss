@@ -1,0 +1,58 @@
+@use "../helpers" as *;
+
+.operations {
+
+   &__header {
+      display: flex;
+      align-items: center;
+      column-gap: 20px;
+      margin-bottom: 20px;
+
+      @include mobile {
+         flex-direction: column;
+         align-items: start;
+         row-gap: 10px;
+      }
+   }
+
+   &__body {
+      display: flex;
+      justify-content: space-between;
+      column-gap: 20px;
+
+      @include tablet {
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include mobile {
+         display: flex;
+         flex-direction: column;
+      }
+   }
+
+   &-card {
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+      width: 100%;
+      padding: 20px 30px;
+      margin-bottom: 40px;
+      background-color: var(--color-dark-alt);
+      border: var(--border-accent);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-button);
+
+      &__body {
+         display: flex;
+         flex-direction: column;
+         row-gap: 20px;
+      }
+
+      &__search-results {
+         @include fluid-text(18, 14);
+
+         margin-top: 5px;
+      }
+   }
+}

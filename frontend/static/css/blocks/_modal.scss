@@ -1,0 +1,105 @@
+@use '../helpers' as *;
+
+.modal {
+   padding: 40px;
+   background-color: var(--color-dark);
+   border: var(--border);
+   border-radius: var(--border-radius);
+
+   &-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background: rgba(var(--color-dark-rgb), 0.5);
+      backdrop-filter: blur(2px);
+
+      &.is-hidden {
+         @include visually-hidden;
+      }
+   }
+
+   &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 20px;
+      margin-bottom: 30px;
+      color: var(--color-light)
+   }
+
+   &__button {
+      @include reset-button;
+      @include square(30px);
+
+      position: relative;
+      background-color: var(--color-light);
+      border-radius: 50%;
+
+      @include hover {
+         background-color: var(--color-accent);
+      }
+
+      &::before,
+      &::after {
+         content: '';
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         translate: -50% -50%;
+         width: 20px;
+         height: 3px;
+         background-color: var(--color-dark);
+         border-radius: var(--border-radius-small);
+         transform: rotate(45deg);
+      }
+
+      &::after {
+         transform: rotate(-45deg);
+      }
+   }
+
+   &__form {
+      display: flex;
+      flex-direction: column;
+      row-gap: 12px;
+   }
+}
+
+.field {
+   display: flex;
+   flex-direction: column;
+   row-gap: 4px;
+
+   &__label {
+      color: var(--color-light)
+   }
+
+   &__input,
+   &__select {
+      @include reset-button;
+
+      height: 40px;
+      padding: 6px 8px;
+      background-color: var(--color-light);
+      border-radius: var(--border-radius-small);
+      color: var(--color-dark);
+
+      @include hover {
+         background-color: var(--color-accent);
+      }
+
+      &:focus {
+         background-color: var(--color-accent);
+      }
+   }
+
+   &__button {
+      margin-top: 10px;
+   }
+}
+

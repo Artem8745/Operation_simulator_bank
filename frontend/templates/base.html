@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Онлайн касса{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="api-url" id="api-prefix">{{ API_PREFIX|default:"/api" }}</div>
+    {% block content %}
+    {% endblock %}
+    
+    <script>
+        // JavaScript для получения правильных URL
+        function getApiUrl(path) {
+            const prefix = document.getElementById('api-prefix')?.textContent || '/api';
+            // Убедимся, что путь начинается с /
+            const normalizedPath = path.startsWith('/') ? path : '/' + path;
+            return prefix + normalizedPath;
+        }
+        
+        // Переопределяем стандартные функции для использования правильных URL
+        function redirectTo(url) {
+            window.location.href = getApiUrl(url);
+        }
+        
+        // Функция для навигации по разделам
+        function showSection(sectionName) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionName).style.display = 'block';
+        }
+        
+        // Функция для показа уведомлений
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                notification.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 5000);
+            } else {
+                alert(`${type.toUpperCase()}: ${message}`);
+            }
+        }
+    </script>
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

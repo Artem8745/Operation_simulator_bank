@@ -1,0 +1,16 @@
+@use '../helpers' as *;
+
+.card-new {
+   display: flex;
+   flex-direction: column;
+   row-gap: 30px;
+
+   &__select {
+      max-width: 280px;
+   }
+
+   &__button-wrapper {
+      display: flex;
+      column-gap: 20px;
+   }
+}

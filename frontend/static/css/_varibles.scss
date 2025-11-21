@@ -1,0 +1,42 @@
+@use './helpers' as *;
+
+:root {
+   --color-dark: #191A23;
+   --color-dark-rgb: rgb(25, 26, 35);
+   --color-dark-alt: #292A32;
+   --color-light: #FFFFFF;
+   --color-accent: #B9FF66;
+   --color-gray: #F3F3F3;
+   --color-gray-alt: #898989;
+
+   --border: 1px solid var(--color-light);
+   --border-black: 1px solid var(--color-dark);
+   --border-accent: 1px solid var(--color-accent);
+   --border-radius: 14px;
+   --border-radius-small: 7px;
+   --border-radius-large: 45px;
+
+   --shadow: 4px 4px 3px 1px var(--color-accent);
+   --shadow-button: 0px 6px 0px 0px var(--color-accent);
+
+   --font-family-base: 'Montserrat', sans-serif;
+
+   --container-width: 1240px;
+   --container-padding-x: 20px;
+
+   --section-padding-y: 70px;
+
+   --input-height: 59px;
+   --button-height: 68px;
+
+   --transition-duration: 0.2s;
+}
+
+// :root[data-theme="light"] {
+//    --color-dark: #FFFFFF;
+//    --color-dark-alt: #F3F3F3;
+//    --color-light: #000000;
+//    --color-accent: #B9FF66;
+//    --color-gray: #191A23;
+//    --color-gray-alt: #292A32;
+// }

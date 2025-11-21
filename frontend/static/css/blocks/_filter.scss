@@ -1,0 +1,26 @@
+@use '../helpers' as *;
+
+.filter {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   column-gap: 20px;
+   row-gap: 30px;
+   padding: 20px;
+   margin-bottom: 20px;
+   background-color: var(--color-dark-alt);
+   border-radius: var(--border-radius);
+
+   @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+   }
+
+   @include mobile {
+      grid-template-columns: repeat(1, 1fr);
+   }
+
+   &__section {
+      display: inline-flex;
+      flex-direction: column;
+      row-gap: 10px;
+   }
+}

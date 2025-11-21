@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="favicon" href="">
+   <title>Админ панель - Онлайн касса</title>
+</head>
+<body>
+   {% csrf_token %}
+   <header class="header">
+      <div class="header__inner container">
+         <h1 class="header__title h3">Админ панель</h1>
+         <nav class="header-menu">
+            <ul class="header-menu-list">
+               <li class="header-menu-item">
+                  <button onclick="window.location.href='/api/dashboard/'" class="header__button button button-across" type="button">Панель управления</button>
+               </li>
+               <li class="header-menu-item">
+                  <button onclick="window.location.href='/admin/'" class="header__button button button-across" type="button">Django Админка</button>
+               </li>
+            </ul>
+         </nav>
+         <div class="header-profile">
+            <span class="header-profile__user-info">{{ user.username }} - админ</span>
+            <button onclick="window.location.href='/api/auth/logout/'" class="header-profile__button button">Выход</button>
+         </div>
+      </div>
+   </header>
+
+   <!-- Общая статистика -->
+   <section class="section">
+      <div class="section__header container">
+         <h2 class="section__title">Общая статистика</h2>
+      </div>
+      <div class="stats container">
+         <div class="stats-card">
+            <div class="stats-card__number">{{ clients_count }}</div>
+            <div class="stats-card__description">Клиентов</div>
+         </div>
+         <div class="stats-card">
+            <div class="stats-card__number">{{ accounts_count }}</div>
+            <div class="stats-card__description">Всего счетов</div>
+         </div>
+         <div class="stats-card">
+            <div class="stats-card__number">{{ active_accounts }}</div>
+            <div class="stats-card__description">Активных счетов</div>
+         </div>
+         <div class="stats-card">
+            <div class="stats-card__number">{{ transactions_count }}</div>
+            <div class="stats-card__description">Транзакций</div>
+         </div>
+      </div>
+   </section>
+
+   <!-- Кнопки ведущие в админку Django -->
+   <section class="section">
+      <div class="section__header container">
+         <h2 class="section__title">Управление</h2>
+      </div>
+      <div class="admin-actions container">
+         <a href="/admin/app/client/" class="admin-actions__button button" target="_blank">Клиентами</a>
+         <a href="/admin/app/account/" class="admin-actions__button button" target="_blank">Счетами</a>
+         <a href="/admin/app/transaction/" class="admin-actions__button button" target="_blank">Транзакциями</a>
+         <a href="/admin/auth/user/" class="admin-actions__button button" target="_blank">Пользователями</a>
+      </div>
+   </section>
+
+   <section class="section">
+      <div class="section__header container">
+         <h2 class="section__title">Последние транзакции</h2>
+      </div>
+      <div class="admin-history container">
+
+         <!-- Статистика транзакций -->
+         <div class="admin-history__info">
+            <strong>Всего транзакций в системе:</strong> {{ total_transactions_count }}
+            <span id="loadedTransactionsInfo"></span>
+         </div>
+
+         <!-- Элементы управления -->
+         <div class="admin-history__filter filter">
+            <div class="filter__section">
+               <label for="filterType" class="filter__label">Фильтр по типу:</label>
+               <select onchange="filterTransactions(this.value)" id="filterType" class="filter__select">
+                  <option value="all">Все типы</option>
+                  <option value="deposit">Пополнения</option>
+                  <option value="withdraw">Снятия</option>
+                  <option value="transfer">Переводы</option>
+               </select>
+            </div>
+            <div class="filter__section">
+               <label for="transactionsLimit" class="filter__label">Количество транзакций:</label>
+               <select id="transactionsLimit" onchange="handleLimitChange()" class="filter__select">
+                  <option value="5">5 транзакций</option>
+                  <option value="10" selected>10 транзакций</option>
+                  <option value="20">20 транзакций</option>
+                  <option value="30">30 транзакций</option>
+                  <option value="50">50 транзакций</option>
+                  <option value="100">100 транзакций</option>
+                  <option value="200">200 транзакций</option>
+                  <option value="400">400 транзакций</option>
+                  <option value="1000">1000 транзакций</option>
+                  <option value="2000">2000 транзакций</option>
+                  <option value="4000">4000 транзакций</option>
+               </select>
+               <button onclick="loadRecentTransactions()" class="filter__button button">Обновить</button>
+            </div>
+            <div class="filter__section">
+               <label for="transactionSearch" class="filter__label">Поиск:</label>
+               <input id="transactionSearch" class="filter__input input" placeholder="Поиск по имени, счету..."  onkeyup="handleSearchInput()" type="text">
+               <button onclick="resetFilters()" class="filter__button button">Сброс</button>
+            </div>
+         </div>
+
+         <!-- История -->
+         <div class="history">
+            <div id="recentTransactionsContainer" class="history__body">
+               <div>Загрузка транзакций...</div>
+            </div>
+         </div>
+
+         <!-- Кнопка "Показать еще" -->
+         <div id="loadMoreContainer" class="admin-history-load-more">
+            <button onclick="loadMoreTransactions()" class="admin-history-load-more__button button">
+               Показать еще транзакции
+            </button>
+         </div>
+      </div>
+   </section>
+
+   <div id="notification" class="notification success hidden">Счета загружены</div>
+
+   <script src="{% static 'js/admin.js' %}"></script>
+</body>
+</html>

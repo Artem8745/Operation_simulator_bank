@@ -1,0 +1,21 @@
+@use '../helpers' as *;
+
+.api-url {
+   display: none;
+}
+
+.notification {
+   position: fixed;
+   top: 16px;
+   right: 10px;
+   padding: 12px;
+   background-color: var(--color-dark-alt);
+   border: var(--border-accent);
+   border-radius: var(--border-radius);
+   box-shadow: var(--shadow);
+   transition-duration: var(--transition-duration);
+
+   &.hidden {
+      transform: translateX(200%);
+   }
+}

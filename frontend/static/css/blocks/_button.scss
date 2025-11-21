@@ -1,0 +1,65 @@
+@use '../helpers' as *;
+
+.button {
+   @include reset-button;
+
+   padding: 10px;
+   outline: none;
+   border: var(--border);
+   border-radius: var(--border-radius-small);
+   color: var(--color-light);
+   font-weight: 500;
+
+   &:focus-visible {
+      border: var(--border-accent);
+   }
+
+   @include hover {
+      background-color: var(--color-accent);
+      border: var(--border-accent);
+      color: var(--color-dark);
+   }
+
+   &-across {
+      border: 1px solid #00000000;
+
+      @include hover {
+         background-color: transparent;
+         border: 1px solid #00000000;
+         color: var(--color-accent);
+      }
+   }
+}
+
+a,
+button {
+   position: relative;
+   text-decoration: none;
+   color: inherit;
+
+   &.button-across {
+      &::after {
+         content: '';
+         position: absolute;
+         top: 100%;
+         left: 50%;
+         translate: -50%;
+         width: 0%;
+         height: 1px;
+         margin-top: 2px;
+         background-color: var(--color-light);
+         transition-duration: var(--transition-duration);
+      }
+
+      @include hover {
+         &::after {
+            width: 100%;
+            background-color: var(--color-accent);
+         }
+      }
+   }
+
+   @include hover {
+      color: var(--color-accent);
+   }
+}
