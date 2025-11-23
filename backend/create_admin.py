@@ -61,7 +61,7 @@ def create_admin_user():
         # Если пользователь создан, устанавливаем пароль
         user.set_password(password)
         user.save()
-        print(f"\n✅ Суперпользователь создан!")
+        print(f"\n Суперпользователь создан!")
         print(f"   Имя пользователя: {username}")
         print(f"   Email: {email}")
     else:
@@ -72,7 +72,7 @@ def create_admin_user():
         user.is_active = True
         user.set_password(password)
         user.save()
-        print(f"\n✅ Суперпользователь обновлен!")
+        print(f"\n Суперпользователь обновлен!")
         print(f"   Имя пользователя: {username}")
         print(f"   Email: {email}")
 

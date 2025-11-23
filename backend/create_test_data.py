@@ -32,6 +32,7 @@ def create_test_data():
         {'username': 'user3', 'email': 'alex@mail.ru', 'password': 'password123'},
         {'username': 'user4', 'email': 'elena@mail.ru', 'password': 'password123'},
         {'username': 'user5', 'email': 'dmitry@mail.ru', 'password': 'password123'},
+        {'username': '1', 'email': 'test@mail.ru', 'password': '123'},
     ]
     
     users = []
@@ -56,6 +57,7 @@ def create_test_data():
         {"name": "Алексей Козлов", "phone": "+79169998877"},
         {"name": "Елена Новикова", "phone": "+79165554433"},
         {"name": "Дмитрий Волков", "phone": "+79163332211"},
+        {"name": "Алексей Павлов", "phone": "+79163457634"},
     ]
     
     clients = []
@@ -90,7 +92,7 @@ def create_test_data():
     
     # Проверяем, что у нас есть клиенты для работы
     if not clients:
-        print("❌ Нет клиентов для создания счетов! Прерывание...")
+        print(" Нет клиентов для создания счетов! Прерывание...")
         return
     
     print("Создание счетов...")
@@ -126,7 +128,7 @@ def create_test_data():
     
     # Проверяем, что у нас есть счета для работы
     if not accounts:
-        print("❌ Нет счетов для создания транзакций! Прерывание...")
+        print(" Нет счетов для создания транзакций! Прерывание...")
         return
     
     print("Создание транзакций...")
@@ -223,18 +225,18 @@ def create_test_data():
             continue
     
     print("\n" + "="*50)
-    print("✅ Тестовые данные созданы успешно!")
+    print("Тестовые данные созданы успешно!")
     print("="*50)
     
     # Детальная статистика
-    print(f"\n📊 Детальная статистика:")
-    print(f"   👥 Пользователей: {User.objects.filter(is_superuser=False).count()}")
-    print(f"   👤 Клиентов: {Client.objects.count()}")
-    print(f"   💳 Счетов: {Account.objects.count()}")
-    print(f"   💰 Транзакций: {Transaction.objects.count()}")
+    print(f"\nДетальная статистика:")
+    print(f"   Пользователей: {User.objects.filter(is_superuser=False).count()}")
+    print(f"   Клиентов: {Client.objects.count()}")
+    print(f"   Счетов: {Account.objects.count()}")
+    print(f"   Транзакций: {Transaction.objects.count()}")
     
     # Статистика по валютам
-    print(f"\n💱 Распределение счетов по валютам:")
+    print(f"\n Распределение счетов по валютам:")
     for currency in currencies:
         count = Account.objects.filter(currency=currency).count()
         if count > 0:
@@ -242,7 +244,7 @@ def create_test_data():
             print(f"   {currency}: {count} счетов, общий баланс: {total_balance:.2f}")
     
     # Вывод информации для тестирования
-    print("\n🔑 Тестовые учетные данные:")
+    print("\n Тестовые учетные данные:")
     print("-" * 50)
     for user in users:
         user_accounts = Account.objects.filter(client__user=user)
